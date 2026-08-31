@@ -1,5 +1,5 @@
 # Go binaries
-gocli
+/gocli
 
 # OS/editor files
 .DS_Store
