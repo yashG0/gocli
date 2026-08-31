@@ -1,0 +1,6 @@
+# Go binaries
+gocli
+
+# OS/editor files
+.DS_Store
+*.swp
