@@ -70,7 +70,7 @@ func search(filename string, p string) {
 			search(filename, filepath.Join(p, item.Name()))
 		} else {
 			if item.Name() == filename {
-				fmt.Println(item.Name())
+				fmt.Println("Found:", filepath.Join(p, item.Name()))
 			}
 		}
 	}
