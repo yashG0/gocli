@@ -24,10 +24,14 @@ func main() {
 			files(os.Args[2])
 		}
 	case "search":
-		if len(os.Args) < 4 {
-			fmt.Println("Please provide filename and location!")
+		if len(os.Args) < 3 {
+			fmt.Println("Please provide a filename!")
+		} else if len(os.Args) == 3 {
+			total := search(os.Args[2], ".")
+			fmt.Println("Total:",total,"found!")
 		} else {
-			search(os.Args[2], os.Args[3])
+			total:= search(os.Args[2], os.Args[3])
+			fmt.Println("Total:",total,"found!")
 		}
 	default:
 		handleDefault(argument)
@@ -59,21 +63,24 @@ func files(p string) {
 	}
 }
 
-func search(filename string, p string) {
+func search(filename string, p string) int {
 	items, err := os.ReadDir(p)
+	count := 0
 	if err != nil {
 		fmt.Println("Invalid Path:", p)
-		return
+		return 0
 	}
 	for _, item := range items {
 		if item.IsDir() {
-			search(filename, filepath.Join(p, item.Name()))
+			count += search(filename, filepath.Join(p, item.Name()))
 		} else {
 			if item.Name() == filename {
 				fmt.Println("Found:", filepath.Join(p, item.Name()))
+				count++
 			}
 		}
 	}
+	return count
 }
 func handleDefault(arg string) {
 	fmt.Println("Unknown Command:", arg)
