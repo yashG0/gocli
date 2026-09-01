@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 	"runtime"
 )
 
@@ -17,13 +18,17 @@ func main() {
 	case "info":
 		info()
 	case "files":
-		if len(os.Args) == 2 {
+		if len(os.Args) < 3 {
 			fmt.Println("Please provide path to search files and folder!")
-		}else{
+		} else {
 			files(os.Args[2])
 		}
 	case "search":
-		search()
+		if len(os.Args) < 4 {
+			fmt.Println("Please provide filename and location!")
+		} else {
+			search(os.Args[2], os.Args[3])
+		}
 	default:
 		handleDefault(argument)
 	}
@@ -40,8 +45,9 @@ func info() {
 	} else {
 		fmt.Println("Hostname:", name)
 	}
-	fmt.Println("CPU Cors:", runtime.NumCPU())
+	fmt.Println("CPU Cores:", runtime.NumCPU())
 }
+
 func files(p string) {
 	items, err := os.ReadDir(p)
 	if err != nil {
@@ -52,8 +58,22 @@ func files(p string) {
 		fmt.Println(item.Name())
 	}
 }
-func search() {
-	fmt.Println("this is search result")
+
+func search(filename string, p string) {
+	items, err := os.ReadDir(p)
+	if err != nil {
+		fmt.Println("Invalid Path:", p)
+		return
+	}
+	for _, item := range items {
+		if item.IsDir() {
+			search(filename, filepath.Join(p, item.Name()))
+		} else {
+			if item.Name() == filename {
+				fmt.Println(item.Name())
+			}
+		}
+	}
 }
 func handleDefault(arg string) {
 	fmt.Println("Unknown Command:", arg)
