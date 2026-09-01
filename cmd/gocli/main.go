@@ -17,7 +17,11 @@ func main() {
 	case "info":
 		info()
 	case "files":
-		files()
+		if len(os.Args) == 2 {
+			fmt.Println("Please provide path to search files and folder!")
+		}else{
+			files(os.Args[2])
+		}
 	case "search":
 		search()
 	default:
@@ -38,8 +42,15 @@ func info() {
 	}
 	fmt.Println("CPU Cors:", runtime.NumCPU())
 }
-func files() {
-	fmt.Println("this is files result")
+func files(p string) {
+	items, err := os.ReadDir(p)
+	if err != nil {
+		fmt.Println("Invalid Path:", p)
+		return
+	}
+	for _, item := range items {
+		fmt.Println(item.Name())
+	}
 }
 func search() {
 	fmt.Println("this is search result")
