@@ -2,7 +2,10 @@
 
 A personal command-line toolkit written in Go.
 
-`gocli` is a learning project focused on building useful, cross-platform command-line utilities while learning Go through active development.
+`gocli` is a learning project focused on building useful, cross-platform
+command-line utilities while learning Go through hands-on development.
+
+The project primarily uses Go's standard library.
 
 ## Current Features
 
@@ -11,10 +14,10 @@ A personal command-line toolkit written in Go.
 Display basic information about the current system:
 
 ```bash
-go run ./cmd/gocli info
+./gocli info
 ```
 
-Example output:
+Example:
 
 ```text
 System Information
@@ -22,6 +25,38 @@ System Information
 OS: linux
 Architecture: amd64
 Hostname: fedora
+CPU Cores: 4
+```
+
+### File Listing
+
+List files and directories from a specified path:
+
+```bash
+./gocli files .
+```
+
+### Recursive File Search
+
+Search for a file recursively through a directory and its subdirectories:
+
+```bash
+./gocli search main.go
+```
+
+By default, the current directory is searched.
+
+You can also specify a search location:
+
+```bash
+./gocli search main.go /tmp
+```
+
+Example:
+
+```text
+Found: cmd/gocli/main.go
+Total: 1 found!
 ```
 
 ## Available Commands
@@ -29,10 +64,8 @@ Hostname: fedora
 | Command | Description |
 |---------|-------------|
 | `info` | Display system information |
-| `files` | File and directory utilities |
-| `search` | Search for files |
-
-> `files` and `search` are currently under development.
+| `files <path>` | List files and directories |
+| `search <filename> [path]` | Recursively search for a file |
 
 ## Project Structure
 
@@ -51,7 +84,7 @@ gocli/
 
 Make sure Go is installed.
 
-Run the CLI:
+Run the project directly:
 
 ```bash
 go run ./cmd/gocli
@@ -61,6 +94,8 @@ Run a command:
 
 ```bash
 go run ./cmd/gocli info
+go run ./cmd/gocli files .
+go run ./cmd/gocli search main.go
 ```
 
 ## Building
@@ -75,6 +110,8 @@ Run the executable:
 
 ```bash
 ./gocli info
+./gocli files .
+./gocli search main.go
 ```
 
 ## Roadmap
@@ -82,8 +119,12 @@ Run the executable:
 - [x] Basic CLI argument handling
 - [x] Command routing
 - [x] System information
-- [ ] File listing
-- [ ] File searching
+- [x] File listing
+- [x] Recursive file searching
+- [x] Search result counting
+- [x] Git and GitHub integration
+- [ ] Improve file listing output
+- [ ] Improve search output
 - [ ] Disk usage
 - [ ] Process information
 - [ ] Network information
@@ -91,7 +132,7 @@ Run the executable:
 - [ ] Project statistics
 - [ ] Configuration
 - [ ] Unit tests
-- [ ] Cross-platform support
+- [ ] Cross-platform testing
 - [ ] Release binaries
 
 ## Goals
@@ -100,10 +141,21 @@ Run the executable:
 - Build useful command-line tools
 - Explore Go's standard library
 - Work with files and operating-system APIs
-- Learn error handling and testing
+- Learn error handling
+- Learn recursion and filesystem traversal
 - Explore concurrency
 - Write clean and maintainable Go code
 - Build a real-world portfolio project
+
+## Development Philosophy
+
+This project is built incrementally rather than following a tutorial.
+
+Features are implemented, tested, committed to Git, and pushed to GitHub
+as the project evolves.
+
+The goal is to understand how things work rather than simply copy
+existing implementations.
 
 ## License
 

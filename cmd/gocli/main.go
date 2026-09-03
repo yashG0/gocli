@@ -28,10 +28,10 @@ func main() {
 			fmt.Println("Please provide a filename!")
 		} else if len(os.Args) == 3 {
 			total := search(os.Args[2], ".")
-			fmt.Println("Total:",total,"found!")
+			fmt.Println("Total:", total, "found!")
 		} else {
-			total:= search(os.Args[2], os.Args[3])
-			fmt.Println("Total:",total,"found!")
+			total := search(os.Args[2], os.Args[3])
+			fmt.Println("Total:", total, "found!")
 		}
 	default:
 		handleDefault(argument)
@@ -51,7 +51,6 @@ func info() {
 	}
 	fmt.Println("CPU Cores:", runtime.NumCPU())
 }
-
 func files(p string) {
 	items, err := os.ReadDir(p)
 	if err != nil {
@@ -62,7 +61,6 @@ func files(p string) {
 		fmt.Println(item.Name())
 	}
 }
-
 func search(filename string, p string) int {
 	items, err := os.ReadDir(p)
 	count := 0
